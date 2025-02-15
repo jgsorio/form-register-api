@@ -1,4 +1,6 @@
+import "express-async-errors";
 import express, { Application, NextFunction, Request, Response } from "express";
+import { ResponseStatus } from "./utils/response-status";
 
 class App {
   public app: Application;
@@ -19,10 +21,14 @@ class App {
         next: NextFunction
       ): any => {
         if (error instanceof Error) {
-          return response.status(400).json({ error: error.message });
+          return response
+            .status(ResponseStatus.BAD_REQUEST)
+            .json({ error: error.message });
         }
 
-        return response.status(500).json({ error: "Internal server error" });
+        return response
+          .status(ResponseStatus.SERVER_ERROR)
+          .json({ error: "Internal server error" });
       }
     );
   }
