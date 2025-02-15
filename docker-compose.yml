@@ -1,0 +1,12 @@
+services:
+  database:
+    image: mongo:latest
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - "27017:27017"
+    container_name: mongodb
+
+volumes:
+  mongodb:
+    driver: local
