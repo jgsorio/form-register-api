@@ -2,6 +2,7 @@ import "express-async-errors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import { ResponseStatus } from "./utils/response-status";
 import router from "./router";
+import cors from "cors";
 
 class App {
   public app: Application;
@@ -12,6 +13,11 @@ class App {
   }
 
   private middlewares() {
+    this.app.use(
+      cors({
+        origin: "http://localhost:3000",
+      })
+    );
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
 
